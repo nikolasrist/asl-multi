@@ -9,4 +9,4 @@ git pull
 echo "#### Build exe file ####"
 gradle build
 echo "#### Copy exe to '$target_path' ####"
-cp "./build/bin/native/releaseExecutable/multi-asl-cli.kexe" "$HOME$target_path/multi-asl-cli.kexe"
+cp "./build/libs/asl-multi-1.0.jar" "$HOME$target_path/asl-multi-1.0.jar"
