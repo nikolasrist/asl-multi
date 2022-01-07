@@ -1,11 +1,8 @@
-import kotlinx.cinterop.pointed
-import kotlinx.cinterop.toKString
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.default
 import kotlinx.cli.required
-import platform.posix.opendir
-import platform.posix.readdir
+import java.io.File
 
 fun main(args: Array<String>) {
     val parser = ArgParser("Multi ASL")
@@ -20,7 +17,9 @@ fun main(args: Array<String>) {
 
     parser.parse(args)
 
-
+    val list = File(input).list()
+    println(list)
+    val inputFile = ""
     val caller = initCaller(inputFile, output, rptsValue, fslAnatOutput, calibrationImagePath)
     if (debug) {
         println("CALL String: \n ${caller.toCallString()}")

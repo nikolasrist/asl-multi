@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "me.nikolasrist"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -14,6 +14,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
+
 }
 
 tasks.test {
