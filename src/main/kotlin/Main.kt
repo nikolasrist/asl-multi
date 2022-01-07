@@ -1,4 +1,3 @@
-
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.toKString
 import kotlinx.cli.ArgParser
@@ -21,40 +20,24 @@ fun main(args: Array<String>) {
 
     parser.parse(args)
 
-    val inputDir = opendir(input)
 
-    if(inputDir != null) {
-        var result = readdir(inputDir)
-        var inputFile = ""
-        while ( result != null) {
-            val fileName = result.pointed.d_name.toKString()
-            println(fileName)
-            if(fileName.contains(".nii")) {
-                inputFile = fileName
-                result = null
-            } else {
-                result = readdir(inputDir)
-            }
-        }
-        if(inputFile == "") {
-            println("Failed to find input file")
-            return
-        }
-        val caller = initCaller(inputFile, output, rptsValue, fslAnatOutput, calibrationImagePath)
-        if (debug) {
-            println("CALL String: \n ${caller.toCallString()}")
-        } else {
-            println("CALL String: \n ${caller.toCallString()}")
-//            system(caller.toCallString())
-        }
+    val caller = initCaller(inputFile, output, rptsValue, fslAnatOutput, calibrationImagePath)
+    if (debug) {
+        println("CALL String: \n ${caller.toCallString()}")
     } else {
-        println("Failed to open input folder")
-        return
+        println("CALL String: \n ${caller.toCallString()}")
+//      system(caller.toCallString())
     }
 
 }
 
-fun initCaller(inputFile: String, output: String, rptsValue: String, fslAnatOutput: String, calibrationImagePath: String): AslCaller {
+fun initCaller(
+    inputFile: String,
+    output: String,
+    rptsValue: String,
+    fslAnatOutput: String,
+    calibrationImagePath: String
+): AslCaller {
     return AslCaller.Builder()
         .input(inputFile)
         .output(output)
