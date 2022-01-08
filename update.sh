@@ -8,5 +8,7 @@ echo "#### Pull latest state ####"
 git pull
 echo "#### Build exe file ####"
 gradle build
+echo "#### Extract Dist files ####"
+tar -xf ./build/distributions/asl-multi-1.0.tar
 echo "#### Copy exe to '$target_path' ####"
-cp "./build/libs/asl-multi-1.0.jar" "$HOME$target_path/asl-multi-1.0.jar"
+cp -r "./build/distributions/asl-multi-1.0" "$HOME$target_path"
