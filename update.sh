@@ -9,6 +9,8 @@ git pull
 echo "#### Build exe file ####"
 gradle build
 echo "#### Extract Dist files ####"
-tar -xf ./build/distributions/asl-multi-1.0.tar
+cd build/dstributions/
+tar -xf asl-multi-1.0.tar
 echo "#### Copy exe to '$target_path' ####"
 cp -r "./build/distributions/asl-multi-1.0" "$HOME$target_path"
+cd ../..
