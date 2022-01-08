@@ -7,7 +7,6 @@ import java.io.File
 fun main(args: Array<String>) {
     val parser = ArgParser("Multi ASL")
     val input by parser.option(ArgType.String, shortName = "i", description = "Input folder").required()
-    val output by parser.option(ArgType.String, shortName = "o", description = "Output folder").required()
     val fslAnatOutput by parser.option(ArgType.String, shortName = "f", description = "FSL_Anat output folder")
         .required()
     val calibrationImagePath by parser.option(ArgType.String, shortName = "c", description = "Calibration image path")
@@ -20,10 +19,11 @@ fun main(args: Array<String>) {
     val inputFiles = File(input).walk().filter { it.name.endsWith(".nii") && !it.name.contains("gleichsinnig") && !it.name.contains("gegensinnig") }
     inputFiles.forEach {
         val inputFile = it.name
-        val outputFile = it.path.split("/").dropLast(1)
-        println("OutPutFile: $outputFile")
+        val outputPath = it.path.split("/")
+        val outputPathString = outputPath.drop(0).dropLast(1).joinToString("/")
+        println("OutPutPath: $outputPathString")
         println("Path: $it.path")
-        val caller = initCaller(inputFile, output, rptsValue, fslAnatOutput, calibrationImagePath)
+        val caller = initCaller(inputFile, outputPathString, rptsValue, fslAnatOutput, calibrationImagePath)
     if (debug) {
         println("DEBUG MODE:")
         println("CALL String: \n ${caller.toCallString()}")
