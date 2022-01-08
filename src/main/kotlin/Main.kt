@@ -19,11 +19,11 @@ fun main(args: Array<String>) {
 
     val inputFiles = File(input).walk().filter { it.name.endsWith(".nii") && !it.name.contains("gleichsinnig") && !it.name.contains("gegensinnig") }
     inputFiles.forEach {
-        println(it.name)
-        println(it.path)
-    }
-    val inputFile = ""
-    val caller = initCaller(inputFile, output, rptsValue, fslAnatOutput, calibrationImagePath)
+        val inputFile = it.name
+        val outputFile = it.path.split("/").dropLast(1)
+        println("OutPutFile: $outputFile")
+        println("Path: $it.path")
+        val caller = initCaller(inputFile, output, rptsValue, fslAnatOutput, calibrationImagePath)
     if (debug) {
         println("DEBUG MODE:")
         println("CALL String: \n ${caller.toCallString()}")
@@ -31,6 +31,7 @@ fun main(args: Array<String>) {
         println("START CALCULATIONS:")
         println("CALL String: \n ${caller.toCallString()}")
 //      system(caller.toCallString())
+    }
     }
 
 }
