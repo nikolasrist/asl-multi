@@ -30,7 +30,10 @@ fun main(args: Array<String>) {
     } else {
         println("START CALCULATIONS:")
         println("CALL String: \n ${caller.toCallString()}")
-        Runtime.getRuntime().exec(caller.toCallString())
+        val process = Runtime.getRuntime().exec(caller.toCallString())
+        println("WAIT TO FINISH CALCULATIONS")
+        process.waitFor()
+        println("CALCULATIONS FOR $inputFile DONE.")
     }
     }
 
