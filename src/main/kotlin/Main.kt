@@ -30,7 +30,7 @@ fun main(args: Array<String>) {
     } else {
         println("START CALCULATIONS:")
         println("CALL String: \n ${caller.toCallString()}")
-//      system(caller.toCallString())
+        Runtime.getRuntime().exec(caller.toCallString())
     }
     }
 
