@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
 
     val inputFiles = File(input).walk().filter { it.name.endsWith(".nii") && !it.name.contains("gleichsinnig") && !it.name.contains("gegensinnig") }
     inputFiles.forEach {
-        val inputFile = it.name
+        val inputFile = it.path
         val outputPath = it.path.split("/")
         val outputPathString = outputPath.drop(0).dropLast(1).joinToString("/")
         println("OutPutPath: $outputPathString")
