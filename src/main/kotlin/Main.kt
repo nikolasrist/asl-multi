@@ -17,9 +17,10 @@ fun main(args: Array<String>) {
 
     parser.parse(args)
 
-    val inputFiles = File(input).walkTopDown().filter { it.name.contains(".nii") }
+    val inputFiles = File(input).walkTopDown().filter { it.name.endsWith(".nii") }
     inputFiles.forEach {
         println(it.name)
+        println(it.path)
     }
     val inputFile = ""
     val caller = initCaller(inputFile, output, rptsValue, fslAnatOutput, calibrationImagePath)
