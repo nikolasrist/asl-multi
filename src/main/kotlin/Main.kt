@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
 
     parser.parse(args)
 
-    val inputFiles = File(input).walkTopDown().filter { it.name.endsWith(".nii") }
+    val inputFiles = File(input).walk().filter { it.name.endsWith(".nii") && !it.name.contains("gleichsinnig") && !it.name.contains("gegensinnig") }
     inputFiles.forEach {
         println(it.name)
         println(it.path)
