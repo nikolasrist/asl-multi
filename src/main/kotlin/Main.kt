@@ -26,8 +26,10 @@ fun main(args: Array<String>) {
     val inputFile = ""
     val caller = initCaller(inputFile, output, rptsValue, fslAnatOutput, calibrationImagePath)
     if (debug) {
+        println("DEBUG MODE:")
         println("CALL String: \n ${caller.toCallString()}")
     } else {
+        println("START CALCULATIONS:")
         println("CALL String: \n ${caller.toCallString()}")
 //      system(caller.toCallString())
     }
