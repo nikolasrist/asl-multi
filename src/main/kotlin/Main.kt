@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
     parser.parse(args)
 
     val list = File(input).list()
-    println(list)
+    println(list.toString())
     val inputFile = ""
     val caller = initCaller(inputFile, output, rptsValue, fslAnatOutput, calibrationImagePath)
     if (debug) {
