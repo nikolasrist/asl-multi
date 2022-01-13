@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
 
     val inputFiles = mutableListOf<File>()
     var calibrationImagePath = "";
-    File(input).walk().forEach {
+    File(input).walkTopDown().forEach {
         if(it.name.endsWith(".nii") && !it.name.contains("gleichsinnig") && !it.name.contains("gegensinnig")) {
             inputFiles.add(it)
         }
