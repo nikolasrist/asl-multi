@@ -9,14 +9,21 @@ fun main(args: Array<String>) {
     val input by parser.option(ArgType.String, shortName = "i", description = "Input folder").required()
     val fslAnatOutput by parser.option(ArgType.String, shortName = "f", description = "FSL_Anat output folder")
         .required()
-    val calibrationImagePath by parser.option(ArgType.String, shortName = "c", description = "Calibration image path")
-        .required()
     val rptsValue by parser.option(ArgType.String, shortName = "r", description = "RPTS value").default("1")
     val debug by parser.option(ArgType.Boolean, shortName = "d", description = "Activate debug logging").default(false)
 
     parser.parse(args)
 
-    val inputFiles = File(input).walk().filter { it.name.endsWith(".nii") && !it.name.contains("gleichsinnig") && !it.name.contains("gegensinnig") }
+    val inputFiles = mutableListOf<File>()
+    var calibrationImagePath = "";
+    File(input).walk().forEach {
+        if(it.name.endsWith(".nii") && !it.name.contains("gleichsinnig") && !it.name.contains("gegensinnig")) {
+            inputFiles.add(it)
+        }
+        if(it.name.endsWith(".nii") && it.name.contains("gleichsinnig")) {
+            calibrationImagePath = it.path
+        }
+    }
     inputFiles.forEach {
         val inputFile = it.path
         val outputPath = it.path.split("/")
