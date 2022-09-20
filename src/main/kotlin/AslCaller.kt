@@ -5,6 +5,7 @@ class AslCaller private constructor(
     val spatial: String?,
     val whitePaperMode: String?,
     val motionCorrection: String?,
+    val infert1: String?,
     val iaf: String?, // <diff, tc, ct>
     val ibf: String?, // <rpt,tis>
     val casl: String?,
@@ -30,7 +31,12 @@ class AslCaller private constructor(
     val calibrationM0: String?, // --M0=<value>
     val alpha: String?,
     val fixbolus: String?,
-    val artoff: String?
+    val artoff: String?,
+    var echospacing: String?,
+    var region_analysis: String?,
+    var pvcorr: String?,
+    var pedir: String?,
+    var cblip: String?
 ) {
     val INTIAL_CALL_STRING = "oxford_asl "
     fun toCallString(): String {
@@ -42,6 +48,7 @@ class AslCaller private constructor(
             .appendValue(this.rpts)
             .appendValue(this.tis)
             .appendValue(this.fslAnatOutput)
+            .appendValue(this.region_analysis)
             .appendValue(this.calibration)
             .appendValue(this.calibrationMethod)
             .appendValue(this.calibrationTr)
@@ -56,6 +63,7 @@ class AslCaller private constructor(
             .appendValue(this.spatial)
             .appendValue(this.whitePaperMode)
             .appendValue(this.motionCorrection)
+            .appendValue(this.infert1)
             .appendValue(this.calibrationTissref)
             .appendValue(this.slicedt)
             .appendValue(this.sliceband)
@@ -64,7 +72,11 @@ class AslCaller private constructor(
             .appendValue(this.calibrationT2csf)
             .appendValue(this.calibrationT2bl)
             .appendValue(this.calibrationTe)
-            .appendValue(calibrationM0)
+            .appendValue(this.calibrationM0)
+            .appendValue(this.pvcorr)
+            .appendValue(this.pedir)
+            .appendValue(this.cblip)
+            .appendValue(this.echospacing)
     }
 
     private fun String.appendValue(value: String?): String {
@@ -104,6 +116,12 @@ class AslCaller private constructor(
         var calibrationAlpha: String? = null, // --tr=<value>
         var calibrationMethod: String? = null, // --cmethod=<single, voxel>
         var calibrationM0: String? = null, // --M0=<value>
+        var echospacing: String? = null,
+        var region_analysis: String? = null,
+        var infert1: String? = null,
+        var pvcorr: String? = null,
+        var pedir: String? = null,
+        var cblip: String? = null
     ) {
 
         fun input(inputPath: String) = apply { this.input = " -i ${inputPath}" }
@@ -139,7 +157,12 @@ class AslCaller private constructor(
         fun alpha(value: String) = apply { this.alpha = " --alpha ${value}" }
         fun fixbolus() = apply { this.fixbolus = " --fixbolus" }
         fun artoff() = apply { this.artoff = " --artoff" }
-
+        fun echospacing(value: String) = apply { this.echospacing = " --echospacing=${value}"}
+        fun region_analysis() = apply { this.region_analysis = " --region-analysis"}
+        fun infert1() = apply {this.infert1 = " --infert1"}
+        fun pvcorr() = apply { this.pvcorr = " --pvcorr" }
+        fun pedir() = apply { this.pedir = " --pedir y"}
+        fun cblip(value: String) = apply { this.cblip = " --cblip ${value}"}
 
         fun build() = AslCaller(
             input,
@@ -148,6 +171,7 @@ class AslCaller private constructor(
             spatial,
             whitePaperMode,
             motionCorrection,
+            infert1,
             iaf,
             ibf,
             casl,
@@ -173,7 +197,12 @@ class AslCaller private constructor(
             calibrationM0,
             alpha,
             fixbolus,
-            artoff
+            artoff,
+            echospacing,
+            region_analysis,
+            pvcorr,
+            pedir,
+            cblip
         )
     }
 }

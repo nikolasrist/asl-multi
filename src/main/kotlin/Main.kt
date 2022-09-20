@@ -16,12 +16,17 @@ fun main(args: Array<String>) {
 
     val inputFiles = mutableListOf<File>()
     var calibrationImagePath = "";
+    var calibrationImagePathRevert = "";
+
     File(input).walkTopDown().forEach {
-        if(it.name.endsWith(".nii") && !it.name.contains("gleichsinnig") && !it.name.contains("gegensinnig")) {
+        if (it.name.endsWith(".nii") && !it.name.contains("gleichsinnig") && !it.name.contains("gegensinnig")) {
             inputFiles.add(it)
         }
-        if(it.name.endsWith(".nii") && it.name.contains("gleichsinnig")) {
+        if (it.name.endsWith(".nii") && it.name.contains("gleichsinnig")) {
             calibrationImagePath = it.path
+        }
+        if (it.name.endsWith(".nii") && it.name.contains("gegensinnig")) {
+            calibrationImagePathRevert = it.path
         }
     }
     inputFiles.forEach {
@@ -30,18 +35,18 @@ fun main(args: Array<String>) {
         val outputPathString = outputPath.drop(0).dropLast(1).joinToString("/")
         println("OutPutPath: $outputPathString")
         println("Path: $it.path")
-        val caller = initCaller(inputFile, outputPathString, rptsValue, fslAnatOutput, calibrationImagePath)
-    if (debug) {
-        println("DEBUG MODE:")
-        println("CALL String: \n ${caller.toCallString()}")
-    } else {
-        println("START CALCULATIONS:")
-        println("CALL String: \n ${caller.toCallString()}")
-        val process = Runtime.getRuntime().exec(caller.toCallString())
-        println("WAIT TO FINISH CALCULATIONS")
-        process.waitFor()
-        println("CALCULATIONS FOR $inputFile DONE.")
-    }
+        val caller = initCaller(inputFile, outputPathString, rptsValue, fslAnatOutput, calibrationImagePath, calibrationImagePathRevert)
+        if (debug) {
+            println("DEBUG MODE:")
+            println("CALL String: \n ${caller.toCallString()}")
+        } else {
+            println("START CALCULATIONS:")
+            println("CALL String: \n ${caller.toCallString()}")
+            val process = Runtime.getRuntime().exec(caller.toCallString())
+            println("WAIT TO FINISH CALCULATIONS")
+            process.waitFor()
+            println("CALCULATIONS FOR $inputFile DONE.")
+        }
     }
 
 }
@@ -51,7 +56,8 @@ fun initCaller(
     output: String,
     rptsValue: String,
     fslAnatOutput: String,
-    calibrationImagePath: String
+    calibrationImagePath: String,
+    calibrationImagePathRevert: String
 ): AslCaller {
     return AslCaller.Builder()
         .input(inputFile)
@@ -67,11 +73,19 @@ fun initCaller(
         .t1b("1.65")
         .fslAnat(fslAnatOutput)
         .calibration(calibrationImagePath)
+        .calibrationGain("1")
         .calibrationMethod("voxel")
         .calibrationTr("6")
         .alpha("0.85")
         .spatial()
         .fixbolus()
         .artoff()
+        .pvcorr()
+        .infert1()
+        .region_analysis()
+        .pedir()
+        .motionCorrection()
+        .echospacing("0.001")
+        .cblip(calibrationImagePathRevert)
         .build()
 }
