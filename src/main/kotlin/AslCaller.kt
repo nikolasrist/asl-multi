@@ -167,12 +167,12 @@ class AslCaller private constructor(
         fun region_analysis() = apply { this.region_analysis = " --region-analysis" }
         fun region_analysis_atlas(value: String?) = apply {
             if (value != null) this.region_analysis_atlas =
-                " --region-analysis-atlas ${value}" else this.region_analysis_atlas = ""
+                " --region-analysis-atlas=${value}" else this.region_analysis_atlas = ""
         }
 
         fun region_analysis_atlas_labels(value: String?) = apply {
             if (value != null) this.region_analysis_atlas_labels =
-                " --region-analysis-atlas_labels ${value}" else this.region_analysis_atlas_labels = ""
+                " --region-analysis-atlas_labels=${value}" else this.region_analysis_atlas_labels = ""
         }
 
         fun infert1() = apply { this.infert1 = " --infert1" }
