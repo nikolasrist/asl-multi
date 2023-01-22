@@ -165,7 +165,7 @@ class AslCaller private constructor(
         fun artoff() = apply { this.artoff = " --artoff" }
         fun echospacing(value: String) = apply { this.echospacing = " --echospacing=${value}"}
         fun region_analysis() = apply { this.region_analysis = " --region-analysis"}
-        fun region_analysis_atlas(value: String) = apply { this.region_analysis_atlas = " --region-analysis-atlas ${value}}"}
+        fun region_analysis_atlas(value: String) = apply { this.region_analysis_atlas = " --region-analysis-atlas ${value}"}
         fun region_analysis_atlas_labels(value: String) = apply { this.region_analysis_atlas_labels = " --region-analysis-atlas_labels ${value}"}
         fun infert1() = apply {this.infert1 = " --infert1"}
         fun pvcorr() = apply { this.pvcorr = " --pvcorr" }
