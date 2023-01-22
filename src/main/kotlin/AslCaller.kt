@@ -38,9 +38,9 @@ class AslCaller private constructor(
     var pedir: String?,
     var cblip: String?
 ) {
-    val INTIAL_CALL_STRING = "oxford_asl "
+    val INITIAL_CALL_STRING = "oxford_asl "
     fun toCallString(): String {
-        return INTIAL_CALL_STRING.appendValue(this.input)
+        return INITIAL_CALL_STRING.appendValue(this.input)
             .appendValue(this.iaf)
             .appendValue(this.ibf)
             .appendValue(this.casl)
