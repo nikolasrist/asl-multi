@@ -11,8 +11,8 @@ fun main(args: Array<String>) {
         .required()
     val rptsValue by parser.option(ArgType.String, shortName = "r", description = "RPTS value").default("1")
     val debug by parser.option(ArgType.Boolean, shortName = "d", description = "Activate debug logging").default(false)
-    val atlasFile by parser.option(ArgType.String, shortName = "a", description = "ROI Atlas file").required()
-    val atlasLabelsFile by parser.option(ArgType.String, shortName = "l", description = "ROI Atlas labels file").required()
+    val atlasFile by parser.option(ArgType.String, shortName = "a", description = "ROI Atlas file")
+    val atlasLabelsFile by parser.option(ArgType.String, shortName = "l", description = "ROI Atlas labels file")
 
     parser.parse(args)
 
@@ -60,8 +60,8 @@ fun initCaller(
     fslAnatOutput: String,
     calibrationImagePath: String,
     calibrationImagePathRevert: String,
-    atlasFile: String,
-    atlasLabelsFile: String
+    atlasFile: String?,
+    atlasLabelsFile: String?
 ): AslCaller {
     return AslCaller.Builder()
         .input(inputFile)

@@ -152,10 +152,10 @@ class AslCaller private constructor(
         fun calibrationTr(value: String) = apply { this.calibrationTr = " --tr ${value}" }
         fun calibrationGain(value: String) = apply { this.calibrationGain = " --cgain ${value}" }
         fun calibrationTissref(value: String) = apply { this.calibrationTissref = " --tissref ${value}" }
-        fun calibrationT1csf(value: String) = apply {this.calibrationT1csf = " --t1csf ${value}"}
-        fun calibrationT2csf(value: String) = apply {this.calibrationT2csf = " --t2csf ${value}"}
-        fun calibrationT2bl(value: String) = apply {this.calibrationT2bl = " --t2bl ${value}"}
-        fun calibrationTe(value: String) = apply {this.calibrationTe = " --te ${value}"}
+        fun calibrationT1csf(value: String) = apply { this.calibrationT1csf = " --t1csf ${value}" }
+        fun calibrationT2csf(value: String) = apply { this.calibrationT2csf = " --t2csf ${value}" }
+        fun calibrationT2bl(value: String) = apply { this.calibrationT2bl = " --t2bl ${value}" }
+        fun calibrationTe(value: String) = apply { this.calibrationTe = " --te ${value}" }
         fun tissref(value: String) = apply { this.calibrationTissref = " --tissref=${value}" }
         fun calibrationAlpha(value: String) = apply { this.calibrationAlpha = " --alpha ${value}" }
         fun calibrationMethod(value: String) = apply { this.calibrationMethod = " --cmethod ${value}" }
@@ -163,14 +163,22 @@ class AslCaller private constructor(
         fun alpha(value: String) = apply { this.alpha = " --alpha ${value}" }
         fun fixbolus() = apply { this.fixbolus = " --fixbolus" }
         fun artoff() = apply { this.artoff = " --artoff" }
-        fun echospacing(value: String) = apply { this.echospacing = " --echospacing=${value}"}
-        fun region_analysis() = apply { this.region_analysis = " --region-analysis"}
-        fun region_analysis_atlas(value: String) = apply { this.region_analysis_atlas = " --region-analysis-atlas ${value}"}
-        fun region_analysis_atlas_labels(value: String) = apply { this.region_analysis_atlas_labels = " --region-analysis-atlas_labels ${value}"}
-        fun infert1() = apply {this.infert1 = " --infert1"}
+        fun echospacing(value: String) = apply { this.echospacing = " --echospacing=${value}" }
+        fun region_analysis() = apply { this.region_analysis = " --region-analysis" }
+        fun region_analysis_atlas(value: String?) = apply {
+            if (value != null) this.region_analysis_atlas =
+                " --region-analysis-atlas ${value}" else this.region_analysis_atlas = ""
+        }
+
+        fun region_analysis_atlas_labels(value: String?) = apply {
+            if (value != null) this.region_analysis_atlas_labels =
+                " --region-analysis-atlas_labels ${value}" else this.region_analysis_atlas_labels = ""
+        }
+
+        fun infert1() = apply { this.infert1 = " --infert1" }
         fun pvcorr() = apply { this.pvcorr = " --pvcorr" }
-        fun pedir() = apply { this.pedir = " --pedir y"}
-        fun cblip(value: String) = apply { this.cblip = " --cblip ${value}"}
+        fun pedir() = apply { this.pedir = " --pedir y" }
+        fun cblip(value: String) = apply { this.cblip = " --cblip ${value}" }
 
         fun build() = AslCaller(
             input,
