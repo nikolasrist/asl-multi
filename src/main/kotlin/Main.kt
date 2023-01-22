@@ -11,12 +11,14 @@ fun main(args: Array<String>) {
         .required()
     val rptsValue by parser.option(ArgType.String, shortName = "r", description = "RPTS value").default("1")
     val debug by parser.option(ArgType.Boolean, shortName = "d", description = "Activate debug logging").default(false)
+    val atlasFile by parser.option(ArgType.String, shortName = "a", description = "ROI Atlas file").required()
+    val atlasLabelsFile by parser.option(ArgType.String, shortName = "l", description = "ROI Atlas labels file").required()
 
     parser.parse(args)
 
     val inputFiles = mutableListOf<File>()
-    var calibrationImagePath = "";
-    var calibrationImagePathRevert = "";
+    var calibrationImagePath = ""
+    var calibrationImagePathRevert = ""
 
     File(input).walkTopDown().forEach {
         if (it.name.endsWith(".nii") && !it.name.contains("gleichsinnig") && !it.name.contains("gegensinnig")) {
@@ -35,7 +37,7 @@ fun main(args: Array<String>) {
         val outputPathString = outputPath.drop(0).dropLast(1).joinToString("/")
         println("OutPutPath: $outputPathString")
         println("Path: $it.path")
-        val caller = initCaller(inputFile, outputPathString, rptsValue, fslAnatOutput, calibrationImagePath, calibrationImagePathRevert)
+        val caller = initCaller(inputFile, outputPathString, rptsValue, fslAnatOutput, calibrationImagePath, calibrationImagePathRevert, atlasFile, atlasLabelsFile)
         if (debug) {
             println("DEBUG MODE:")
             println("CALL String: \n ${caller.toCallString()}")
@@ -57,7 +59,9 @@ fun initCaller(
     rptsValue: String,
     fslAnatOutput: String,
     calibrationImagePath: String,
-    calibrationImagePathRevert: String
+    calibrationImagePathRevert: String,
+    atlasFile: String,
+    atlasLabelsFile: String
 ): AslCaller {
     return AslCaller.Builder()
         .input(inputFile)
@@ -83,6 +87,8 @@ fun initCaller(
         .pvcorr()
         .infert1()
         .region_analysis()
+        .region_analysis_atlas(atlasFile)
+        .region_analysis_atlas_labels(atlasLabelsFile)
         .pedir()
         .motionCorrection()
         .echospacing("0.001")

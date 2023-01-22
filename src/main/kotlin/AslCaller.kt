@@ -34,6 +34,8 @@ class AslCaller private constructor(
     val artoff: String?,
     var echospacing: String?,
     var region_analysis: String?,
+    var region_analysis_atlas: String?,
+    var region_analysis_atlas_labels: String?,
     var pvcorr: String?,
     var pedir: String?,
     var cblip: String?
@@ -49,6 +51,8 @@ class AslCaller private constructor(
             .appendValue(this.tis)
             .appendValue(this.fslAnatOutput)
             .appendValue(this.region_analysis)
+            .appendValue(this.region_analysis_atlas)
+            .appendValue(this.region_analysis_atlas_labels)
             .appendValue(this.calibration)
             .appendValue(this.calibrationMethod)
             .appendValue(this.calibrationTr)
@@ -118,6 +122,8 @@ class AslCaller private constructor(
         var calibrationM0: String? = null, // --M0=<value>
         var echospacing: String? = null,
         var region_analysis: String? = null,
+        var region_analysis_atlas: String? = null,
+        var region_analysis_atlas_labels: String? = null,
         var infert1: String? = null,
         var pvcorr: String? = null,
         var pedir: String? = null,
@@ -159,6 +165,8 @@ class AslCaller private constructor(
         fun artoff() = apply { this.artoff = " --artoff" }
         fun echospacing(value: String) = apply { this.echospacing = " --echospacing=${value}"}
         fun region_analysis() = apply { this.region_analysis = " --region-analysis"}
+        fun region_analysis_atlas(value: String) = apply { this.region_analysis_atlas = " --region-analysis-atlas ${value}}"}
+        fun region_analysis_atlas_labels(value: String) = apply { this.region_analysis_atlas_labels = " --region-analysis-atlas_labels ${value}"}
         fun infert1() = apply {this.infert1 = " --infert1"}
         fun pvcorr() = apply { this.pvcorr = " --pvcorr" }
         fun pedir() = apply { this.pedir = " --pedir y"}
@@ -200,6 +208,8 @@ class AslCaller private constructor(
             artoff,
             echospacing,
             region_analysis,
+            region_analysis_atlas,
+            region_analysis_atlas_labels,
             pvcorr,
             pedir,
             cblip
