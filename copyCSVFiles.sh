@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Use this script in the `asl-kalkulationen` folder to work properly.
+
 # Iterate through all items in the current directory
 echo "Start copy process for CSV files"
 echo "Creating 'csv_files' folder"
