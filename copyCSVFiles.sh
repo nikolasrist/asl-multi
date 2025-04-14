@@ -4,9 +4,23 @@
 
 # Iterate through all items in the current directory
 echo "Start copy process for CSV files"
+echo "Checking current location:"
+currentDir=$(pwd)
+echo "Current directory: $currentDir"
+
+if [[ "$currentDir" == */asl-kalkulationen ]]; then
+  # Use ./einzelpakete/*/ if in the 'asl-kalkulationen' folder
+  searchPath="./einzelpakete/*/"
+else
+  # Use ./*/ if in einzelpakete
+  searchPath="./*/"
+fi
+
+echo "Using search path: $searchPath"
+
 echo "Creating 'csv_files' folder"
 mkdir -p ./csv_files
-for dir in ./einzelpakete/*/; do
+for dir in $searchPath; do
   # Check if it is a directory
   if [ -d "$dir" ] && [[ $(basename "$dir") =~ ^[0-9]{2}$ ]]; then
     echo "About to work through folder/person: $dir"
